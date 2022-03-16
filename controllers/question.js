@@ -1,10 +1,11 @@
 const Question = require('../models/question');
 
+const idColletion = "6231526695761b0c813856d1"
 
 function updateQuestion(req, res) {
   let questionData = req.body;
 
-  Question.findByIdAndUpdate("62312e2aecf7ec41c107f264", questionData, (err, updateQuestion) => {
+  Question.findByIdAndUpdate(idColletion, questionData, (err, updateQuestion) => {
     if (err) {
       res.status(500).send({ message: "error del servidor" });
     } else {
@@ -20,7 +21,7 @@ function updateQuestion(req, res) {
 
 async function getQuestion(req, res) {
   try {
-    const result = await Question.findById("62312e2aecf7ec41c107f264")
+    const result = await Question.findById(idColletion)
     if(result) return res.status(200).send({ result });
     return res.status(404).send({ message: "Documento no encontrado" });
   } catch (error) {

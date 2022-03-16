@@ -20,7 +20,7 @@ async function signUp(req, res) {
 
   user.fname = fname;
   user.lname = lname;
-  user.email = email;
+  user.email = email.toLowerCase();
   user.tel = prefix + tel;
   user.city = city;
   user.question = question
@@ -34,13 +34,31 @@ async function signUp(req, res) {
     if (err) return res.status(500).send({ message: "Error al encriptar la contraseña" })
     user.password = hash;
     user.save((err, userStored) => {
-      if (err) return res.status(500).send({ message: "Error al guardar "})
+      if (err) return res.status(500).send({ message: "Error al guardar " })
       if (!userStored) return res.status(404).send({ message: "Error al crear usuario" })
       return res.status(200).send({ user: userStored, message: "Usuario creado" })
     });
   })
 }
 
+function signIn(req, res) {
+  const params = req.body;
+  const email = params.email.toLowerCase();
+  const password = params.password;
+
+  User.findOne({ email }, (err, userStored) => {
+    if (err) return res.status(500).send({ message: "Error del servidor" })
+    if (!userStored) return res.status(404).send({ message: "Usuario no encontrado" })
+
+    bcrypt.compare(password, userStored.password, (err, check) => {
+      if (err) return res.status(500).send({ message: "error del servidor" })
+      if (!check) return res.status(404).send({ message: "contraseña incorrecta" })
+      return res.status(200).send({accessToken: jwt.createAccessToken(userStored)})
+    })
+  })
+}
+
 module.exports = {
-  signUp
+  signUp,
+  signIn
 }

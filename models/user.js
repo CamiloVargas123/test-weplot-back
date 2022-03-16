@@ -12,7 +12,8 @@ const UserSchame = Schema({
   country: String,
   question: Array,
   password: String,
-  role: String
+  role: String,
+  avatar: String
 })
 
 module.exports = mongoose.model("User", UserSchame)

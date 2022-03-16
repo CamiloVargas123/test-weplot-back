@@ -14,6 +14,7 @@ async function signUp(req, res) {
     tel,
     city,
     question,
+    avatar,
   } = req.body;
 
   const saltRounds = 10;
@@ -24,6 +25,7 @@ async function signUp(req, res) {
   user.tel = prefix + tel;
   user.city = city;
   user.question = question
+  user.avatar = avatar
   user.role = "user";
 
   if (password.length < 1 || repeatPassword.length < 1) return res.status(404).send({ message: "Las contraseñas no exiten" })

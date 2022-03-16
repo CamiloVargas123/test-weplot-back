@@ -11,7 +11,8 @@ exports.createAccessToken = function(user){
         role: user.role,
         question: user.question,
         tel: user.tel,
-        city: user.city
+        city: user.city,
+        avatar: user.avatar
     }
     return jwt.encode(payload, SECRET_KEY);
 }

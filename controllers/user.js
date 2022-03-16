@@ -55,12 +55,23 @@ function signIn(req, res) {
     bcrypt.compare(password, userStored.password, (err, check) => {
       if (err) return res.status(500).send({ message: "error del servidor" })
       if (!check) return res.status(404).send({ message: "contraseña incorrecta" })
-      return res.status(200).send({accessToken: jwt.createAccessToken(userStored)})
+      return res.status(200).send({ accessToken: jwt.createAccessToken(userStored) })
     })
   })
 }
 
+async function getAllUsers(req, res) {
+  try {
+    const result = await User.find({role:{$ne: 'admin'}})
+    if(result) return res.status(200).send({ result });
+    return res.status(404).send({ message: "No exiten usuarios" });
+  } catch (error) {
+    res.status(500).send({ message: "Error del servidor", detailt: error.message });
+  }
+}
+
 module.exports = {
   signUp,
-  signIn
+  signIn,
+  getAllUsers
 }

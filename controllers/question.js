@@ -20,7 +20,7 @@ function updateQuestion(req, res) {
 
 async function getQuestion(req, res) {
   try {
-    const result = await Question.findById("62312e2aecf7ec41c107f264").exec()
+    const result = await Question.findById("62312e2aecf7ec41c107f264")
     if(result) return res.status(200).send({ result });
     return res.status(404).send({ message: "Documento no encontrado" });
   } catch (error) {

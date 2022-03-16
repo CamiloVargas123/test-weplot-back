@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const jwt = require('jwt-simple')
+const jwt = require("../services/jwt");
 const User = require('../models/user')
 
 async function signUp(req, res) {

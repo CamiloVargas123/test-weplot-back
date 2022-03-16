@@ -1,6 +1,6 @@
 const Question = require('../models/question');
 
-const idColletion = "62315dd995761b0c813856d2"
+const idColletion = "62323b35eef3aa9c7f1c7412"
 
 function updateQuestion(req, res) {
   let questionData = req.body;
